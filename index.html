@@ -1,84 +1,235 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Abrar Hossain.io</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<head>
+	<title>Abrar Hossain.io</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+	<!-- Spline Import -->
+	<script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.48/build/spline-viewer.js" async></script>
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<span class="icon fa-gem"></span>
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Abrar Hossain</h1>
-								<p>I'm a Dhaka Based Web Developer </a> <br />
-								I'm passionate about video editing and competitive gaming</a></p>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#work">Work</a></li>
-								<li><a href="#about">About</a></li>
-								<li><a href="#contact">Contact</a></li>
-								<!--<li><a href="#elements">Elements</a></li>-->
-							</ul>
-						</nav>
-					</header>
+	<!-- Font Awesome for Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-				<!-- Main -->
-					<div id="main">
+	<style>
+		/* Make spline take full screen */
+		#spline-main {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
 
-						<!-- Work -->
-							<article id="work">
-								<h2 class="major">Work</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<p>I've completed my O'levels and A'levels from Mastermind School and completing my Bachelor's of Computer Science and Engineering from North South University. Through out the 4 years of my University, I've participated in many projects and also excel at non major-related work.</p>
-								<p>I'm familiar with most languages used today such as JavaScript,Html/CSS,SQL,Python. I'm looking forward to collaborating with like minded people and i highly thrive in scenerios under pressure.</p>
-							</article>
+		/* ✅ Remove "Built with Spline" badge */
+		spline-viewer::part(branding) {
+			display: none !important;
+		}
+		/* For older versions if branding persists */
+		.spline-watermark, .spline-info {
+			display: none !important;
+		}
 
-						<!-- About -->
-						<article id="about">
-							<h2 class="major">About</h2>
-							<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
-							<p>Born in 1996, I'm a multi-disciplinary creative from Dhaka currently pursuing my passion in web development, other than that i'm proficient in Graphics Design, Video editing, and passionate about music and gaming( would love to get paid in graphics cards). I aspire to change the world by learning new cultures and seeing through new perspectives.</p>
-						</article>
+		/* Social container for buttons and email */
+		.social-container {
+			position: fixed;
+			bottom: 40px;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 15px;
+			z-index: 10;
+		}
 
-						<!-- Contact -->
-							<article id="contact">
-								<h2 class="major">Contact</h2>
-								<ul class="icons">
-									<li><a href="https://www.facebook.com/hossain.abrer/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="https://www.instagram.com/hossainabrer/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://www.youtube.com/channel/UCsEg6tDYG0nsuuOJHzGUi-Q" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
-									<p>Email : abrarhosane@gmail.com<p>
-								</ul>
-							</article>
-					</div>
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; GitHub.Io</a>.</p>
-					</footer>
+		/* Social media buttons container */
+		.social-buttons {
+			display: flex;
+			gap: 15px;
+		}
 
-			</div>
+		/* Email text styling */
+		.email-text {
+			color: rgba(255, 255, 255, 0.7);
+			background: rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(15px) saturate(180%);
+			-webkit-backdrop-filter: blur(15px) saturate(180%);
+			font-size: 0.50rem;
+			font-family: 'Tahoma', monospace;
+			letter-spacing: 0.4px;
+			user-select: text;
+			cursor: text;
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			animation: pulse 4s ease-in-out infinite;
+			animation-delay: 1.2s;
+		}
 
-		<!-- BG -->
-			<div id="bg"></div>
+		.email-text:hover {
+			color: rgba(255, 255, 255, 0.9);
+			background: rgba(255, 255, 255, 0.08);
+			transform: translateY(-2px);
+			
+		}
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		.email-text::selection {
+			background: rgba(0, 200, 255, 0.3);
+			color: rgba(255, 255, 255, 1);
+		}
 
-	</body>
+		/* Individual circular glass buttons - 1/3rd smaller, more transparent */
+		.social-btn {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			color: rgba(255, 255, 255, 0.8);
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			box-shadow: 
+				0 4px 20px rgba(0, 0, 0, 0.15),
+				inset 0 1px 0 rgba(255, 255, 255, 0.2),
+				0 1px 2px rgba(0, 0, 0, 0.1);
+			transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			font-size: 0.9rem;
+			position: relative;
+			overflow: hidden;
+		}
+
+		/* Frosted glass reflection effect */
+		.social-btn::before {
+			content: '';
+			position: absolute;
+			top: -50%;
+			left: -50%;
+			width: 200%;
+			height: 200%;
+			background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+			transform: rotate(-45deg);
+			transition: all 0.8s ease;
+			opacity: 0;
+		}
+
+		.social-btn:hover::before {
+			opacity: 1;
+			animation: shimmer 1.5s ease-in-out;
+		}
+
+		@keyframes shimmer {
+			0% { transform: translateX(-100%) rotate(-45deg); }
+			100% { transform: translateX(100%) rotate(-45deg); }
+		}
+
+		.social-btn:hover {
+			transform: translateY(-8px) scale(1.1);
+			color: rgba(255, 255, 255, 1);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			box-shadow: 
+				0 12px 35px rgba(0, 0, 0, 0.25),
+				inset 0 2px 0 rgba(255, 255, 255, 0.3),
+				0 0 30px rgba(255, 255, 255, 0.2);
+		}
+
+		.social-btn:active {
+			transform: translateY(-6px) scale(1.05);
+			transition: all 0.1s ease;
+		}
+
+		/* Individual button colors on hover with enhanced glass effect */
+		.social-btn.facebook:hover {
+			background: rgba(24, 119, 242, 0.25);
+			box-shadow: 
+				0 12px 35px rgba(24, 119, 242, 0.3),
+				inset 0 2px 0 rgba(255, 255, 255, 0.3),
+				0 0 30px rgba(24, 119, 242, 0.4);
+			border-color: rgba(24, 119, 242, 0.4);
+		}
+
+		.social-btn.instagram:hover {
+			background: rgba(225, 48, 108, 0.25);
+			box-shadow: 
+				0 12px 35px rgba(225, 48, 108, 0.3),
+				inset 0 2px 0 rgba(255, 255, 255, 0.3),
+				0 0 30px rgba(225, 48, 108, 0.4);
+			border-color: rgba(225, 48, 108, 0.4);
+		}
+
+		.social-btn.youtube:hover {
+			background: rgba(255, 0, 0, 0.25);
+			box-shadow: 
+				0 12px 35px rgba(255, 0, 0, 0.3),
+				inset 0 2px 0 rgba(255, 255, 255, 0.3),
+				0 0 30px rgba(255, 0, 0, 0.4);
+			border-color: rgba(255, 0, 0, 0.4);
+		}
+
+
+
+		/* Pulsing animation for subtle life */
+		@keyframes pulse {
+			0%, 100% { opacity: 0.8; }
+			50% { opacity: 1; }
+		}
+
+		.social-btn {
+			animation: pulse 3s ease-in-out infinite;
+		}
+
+		.social-btn:nth-child(1) { animation-delay: 0s; }
+		.social-btn:nth-child(2) { animation-delay: 0.3s; }
+		.social-btn:nth-child(3) { animation-delay: 0.6s; }
+		.social-btn:nth-child(4) { animation-delay: 0.9s; }
+
+		/* Responsive design for smaller screens */
+		@media (max-width: 768px) {
+			.social-buttons {
+				gap: 12px;
+			}
+			.social-btn {
+				width: 35px;
+				height: 35px;
+				font-size: 0.8rem;
+			}
+			.email-text {
+				font-size: 0.50rem;
+				padding: 6px 12px;
+			}
+		}
+	</style>
+</head>
+<body>
+
+	<!-- ✅ Fullscreen Spline Scene (MAIN PAGE) -->
+	<spline-viewer id="spline-main" 
+		loading-anim-type="spinner-small-dark" 
+		url="https://prod.spline.design/H0rt8lDXrk1nGE2I/scene.splinecode">
+	</spline-viewer>
+
+	<!-- ✅ Social Media Circular Buttons (bottom center) -->
+	<div class="social-container">
+		<div class="social-buttons">
+			<a href="https://www.facebook.com/hossain.abrer/" target="_blank" class="social-btn facebook" title="Facebook">
+				<i class="fab fa-facebook-f"></i>
+			</a>
+			<a href="https://www.instagram.com/hossainabrer/" target="_blank" class="social-btn instagram" title="Instagram">
+				<i class="fab fa-instagram"></i>
+			</a>
+			<a href="https://www.youtube.com/channel/UCsEg6tDYG0nsuuOJHzGUi-Q" target="_blank" class="social-btn youtube" title="YouTube">
+				<i class="fab fa-youtube"></i>
+			</a>
+		</div>
+		<div class="email-text" id="email-display">
+			<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f3e3d2d3e2d37302c3e313a1f38323e3633713c3032">Abrarhosane@gmail.com</a>
+		</div>
+	</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>
